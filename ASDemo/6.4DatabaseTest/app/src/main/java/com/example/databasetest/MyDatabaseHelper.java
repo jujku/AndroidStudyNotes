@@ -28,7 +28,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
         db.execSQL(CREATE_BOOK);
         db.execSQL(CREATE_CATEGORY);
-        Toast.makeText(mContext,"创建成功",Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
