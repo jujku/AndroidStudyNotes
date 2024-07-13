@@ -50,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Vibrator vibrator = (Vibrator) MainActivity.this.getSystemService(MainActivity.this.VIBRATOR_SERVICE);
 
-                Intent intent = new Intent(MainActivity.this, com.example.notificationtest.Notification.class);
-                PendingIntent pi = PendingIntent.getActivity(MainActivity.this,0,intent,0);
-
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Notification notification = new NotificationCompat.Builder(MainActivity.this,channelId)
                         .setContentTitle("这是一个标题")
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.icon))
 //                        .setAutoCancel(true)
-                        .setContentIntent(pi)
+
 //                        .setSound(Uri.fromFile(new File("/system/media/audio/ringtones/Luna.ogg")))
 //                        .setVibrate(new long[]{0,1000,1000,1000})
                         .build();
