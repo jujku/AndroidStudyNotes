@@ -44,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
             // 在系统中注册渠道
             notificationManager.createNotificationChannel(channel);
         }
+
         Button sendNotice = (Button) findViewById(R.id.notice_button);
         sendNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Vibrator vibrator = (Vibrator) MainActivity.this.getSystemService(MainActivity.this.VIBRATOR_SERVICE);
+
 
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 Notification notification = new NotificationCompat.Builder(MainActivity.this,channelId)
