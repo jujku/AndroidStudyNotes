@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -53,17 +55,32 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://www.w3schools.com/xml/note.xml")
+                            .url("https://jsonplaceholder.typicode.com/posts/1")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
 //                    showResponse(responseData);
-                    parseXMLWithPull(responseData);
+                    parseJSONWithJSONObject(responseData);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
         }).start();
+    }
+
+    private void parseJSONWithJSONObject(String jsonData){
+        try{
+            JSONObject jsonObject = new JSONObject(jsonData);
+                String id = jsonObject.getString("id");
+                String title = jsonObject.getString("title");
+                String body = jsonObject.getString("body");
+                Log.d(TAG, "id is " + id);
+                Log.d(TAG, "title is " + title);
+                Log.d(TAG, "body is " + body);
+            }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void parseXMLWithPull(String xmlData){
@@ -72,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             XmlPullParser xmlPullParser = factory.newPullParser();
             xmlPullParser.setInput(new StringReader(xmlData));
             int eventType = xmlPullParser.getEventType();
-            Log.d(TAG, xmlPullParser.getName());
             String to = "";
             String from = "";
             String heading = "";
