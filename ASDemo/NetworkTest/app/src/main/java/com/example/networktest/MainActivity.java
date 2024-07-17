@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -21,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -60,12 +64,23 @@ public class MainActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
 //                    showResponse(responseData);
-                    parseJSONWithJSONObject(responseData);
+                    parseJSONWithGSON(responseData);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
         }).start();
+    }
+
+    private void parseJSONWithGSON(String jsonData){
+        Gson gson = new Gson();
+//        List<Item> itemList = gson.fromJson(jsonData,new TypeToken<List<Item>>(){}.getType());
+        Item item = gson.fromJson(jsonData,Item.class);
+//        for(Item item:itemList){
+            Log.d(TAG, "id is " + item.getId());
+            Log.d(TAG, "title is " + item.getTitle());
+            Log.d(TAG, "body is " + item.getBody());
+//        }
     }
 
     private void parseJSONWithJSONObject(String jsonData){
