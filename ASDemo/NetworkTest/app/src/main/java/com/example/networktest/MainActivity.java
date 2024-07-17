@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("http://192.168.40.23:80/get_data.xml")
+                            .url("https://www.w3schools.com/xml/note.xml")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -72,28 +72,33 @@ public class MainActivity extends AppCompatActivity {
             XmlPullParser xmlPullParser = factory.newPullParser();
             xmlPullParser.setInput(new StringReader(xmlData));
             int eventType = xmlPullParser.getEventType();
-            String id = "";
-            String name = "";
-            String version = "";
+            Log.d(TAG, xmlPullParser.getName());
+            String to = "";
+            String from = "";
+            String heading = "";
+            String body = "";
             while(eventType != XmlPullParser.END_DOCUMENT){
                 String nodeName = xmlPullParser.getName();
                 switch(eventType){
                     case XmlPullParser.START_TAG:{
-                        if("id".equals(nodeName)){
-                            id = xmlPullParser.nextText();
-                        }else if("name".equals(nodeName)){
-                            name = xmlPullParser.nextText();
-                        }else if("version".equals(nodeName)){
-                            version = xmlPullParser.nextText();
+                        if("to".equals(nodeName)){
+                            to = xmlPullParser.nextText();
+                        }else if("from".equals(nodeName)){
+                            from = xmlPullParser.nextText();
+                        }else if("heading".equals(nodeName)){
+                            heading = xmlPullParser.nextText();
+                        } else if ("body".equals(nodeName)) {
+                            body = xmlPullParser.nextText();
                         }
                         break;
                    }
                 //完成解析某个节点
                     case XmlPullParser.END_TAG:{
-                    if("app".equals(nodeName)){
-                        Log.d(TAG, "id is "+ id);
-                        Log.d(TAG, "name is "+ name);
-                        Log.d(TAG, "version is "+ version);
+                    if("note".equals(nodeName)){
+                        Log.d(TAG, "id is "+ to);
+                        Log.d(TAG, "name is "+ from);
+                        Log.d(TAG, "version is "+ heading);
+                        Log.d(TAG, "body is "+ body);
                     }
                     break;
                     }
