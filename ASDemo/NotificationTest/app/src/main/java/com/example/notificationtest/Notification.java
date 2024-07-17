@@ -30,7 +30,7 @@ public class Notification extends AppCompatActivity {
             // 定义渠道描述
             String description = "This is my channel1";
             // 定义渠道重要性
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_MAX;
             // 创建渠道
             NotificationChannel channel = new NotificationChannel(channelId, name, importance);
             channel.setDescription(description);
@@ -53,7 +53,7 @@ public class Notification extends AppCompatActivity {
                         .setCustomContentView(remoteViews)
                         .setCustomHeadsUpContentView(remoteViews)
                         .setCustomBigContentView(remoteViews)
-                        .setPriority(NotificationCompat.PRIORITY_HIGH).build();
+                        .setPriority(NotificationCompat.PRIORITY_MAX).build();
 
                 notificationManager.notify(2, notification);
             }
