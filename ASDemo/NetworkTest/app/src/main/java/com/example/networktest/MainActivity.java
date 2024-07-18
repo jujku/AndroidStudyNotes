@@ -46,12 +46,26 @@ public class MainActivity extends AppCompatActivity {
         sendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendRequestWithOkHttp();
+                sendRequestWithMyHttp();
 
             }
         });
 
     }
+    private void sendRequestWithMyHttp(){
+        HttpUtil.sendHttpRequest("https://jsonplaceholder.typicode.com/posts/1", new HttpCallbackListener() {
+            @Override
+            public void onFinish(String response) {
+                parseJSONWithGSON(response);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     private void sendRequestWithOkHttp(){
         new Thread(new Runnable(){
             @Override
