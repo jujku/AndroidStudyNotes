@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         Button bindService = (Button) findViewById(R.id.bind_button);
         Button unbindService = (Button) findViewById(R.id.unbind_button);
 
+        Button startIntentService = (Button) findViewById(R.id.start_intent_service);
+
         startService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 unbindService(connection); //解绑服务
+            }
+        });
+
+        startIntentService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("MainActivity", "Thread id is " + Thread.currentThread().getId());
+                Intent intentService = new Intent(MainActivity.this,MyIntentService.class);
+                startService(intentService);
             }
         });
     }
