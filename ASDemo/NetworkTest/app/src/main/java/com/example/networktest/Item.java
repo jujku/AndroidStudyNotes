@@ -2,6 +2,7 @@ package com.example.networktest;
 
 public class Item {
     private int userId;
+    private String name;
     private int id;
     private String title;
     private String body;
