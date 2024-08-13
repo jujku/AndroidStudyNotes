@@ -1,6 +1,9 @@
 package com.example.litepaltest;
 
-public class Book {
+import org.litepal.crud.LitePalSupport;
+import org.litepal.exceptions.DataSupportException;
+
+public class Book extends LitePalSupport {
     private int id;
     private String author;
     private double price;

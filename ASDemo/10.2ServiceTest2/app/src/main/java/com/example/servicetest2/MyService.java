@@ -50,7 +50,7 @@ public class MyService extends Service {
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.notification_layout);
 
         Intent intent = new Intent(this,MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(this,0,intent,0);
+//        PendingIntent pi = PendingIntent.getActivity(this,0,intent,f);
         Notification notification = new NotificationCompat.Builder(this,CHANNEL_ID)
                 .setContentText("this is content text")
                 .setContentTitle("this is content title")
@@ -61,7 +61,7 @@ public class MyService extends Service {
                 .setCustomContentView(remoteViews)
                 .setCustomHeadsUpContentView(remoteViews)
                 .setCustomBigContentView(remoteViews)
-                .setContentIntent(pi)
+//                .setContentIntent(pi)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .build();
         startForeground(1,notification);
