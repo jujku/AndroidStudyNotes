@@ -31,6 +31,12 @@
         android:layout_height="wrap_content"
         android:text="刷新列表"/>
 
+    <Button
+        android:id="@+id/upload_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击上传"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/file_list"
         android:layout_width="match_parent"

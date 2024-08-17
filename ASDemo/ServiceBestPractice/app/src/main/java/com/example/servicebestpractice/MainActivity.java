@@ -1,5 +1,7 @@
 package com.example.servicebestpractice;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -7,13 +9,19 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.provider.Telephony;
 import android.util.Log;
@@ -27,7 +35,10 @@ import com.example.servicebestpractice.enitiy.FileItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         selectedFile = (TextView) findViewById(R.id.selected_file_view);
-
         recyclerView = findViewById(R.id.file_list);
         initFileData();
         //渲染文件列表
@@ -83,10 +93,13 @@ public class MainActivity extends AppCompatActivity {
         Button pauseDownload = (Button) findViewById(R.id.pause_download_button);
         Button cancelDownload = (Button) findViewById(R.id.cancel_download_button);
 
+        Button uploadButton = (Button) findViewById(R.id.upload_button);
+        uploadButton.setOnClickListener(v -> openFileChooser());
+
         startDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "http://192.168.42.228/"+selectedFile.getText().toString().substring(4);
+                String url = "http://121.43.234.157/"+selectedFile.getText().toString().substring(4);
                 System.out.println(url);
                 downloadBinder.startDownload(url);
             }
@@ -140,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("http://192.168.42.228:3000/files")
+                            .url("http://121.43.234.157:3000/files")
                             .build();
                     client.newCall(request).enqueue(new Callback() {
                         @Override
@@ -176,4 +189,96 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+    private static final int FILE_SELECT_CODE = 0;
+
+    public void openFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("*/*"); // 设置文件类型
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        try {
+            filePickerLauncher.launch(Intent.createChooser(intent, "Select a file to upload"));
+        } catch (android.content.ActivityNotFoundException ex) {
+            // 如果没有文件管理器应用程序
+            Toast.makeText(this, "Please install a File Manager.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public String getPath(Uri uri,String filename) {
+        String path = null;
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            File file = new File(getCacheDir(), filename);
+            FileOutputStream outputStream = new FileOutputStream(file);
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            inputStream.close();
+            outputStream.close();
+            path = file.getPath();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "getPath: " + path);
+        return path;
+
+    }
+
+
+    private void uploadSelectedFile(String filePath) {
+        String uploadUrl = "http://121.43.234.157:3000/upload";
+
+        new Thread(() -> {
+            try {
+                new FileUpload().uploadFile(filePath, uploadUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+
+    private ActivityResultLauncher<Intent> filePickerLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    if (data != null) {
+                        Uri uri = data.getData();
+                        String fileName = getFileName(uri);
+
+                        String filePath = getPath(uri,fileName);
+                        Log.d(TAG, "Selected file path: " + filePath);
+                        if (filePath != null) {
+                            uploadSelectedFile(filePath);
+                        } else {
+                            Toast.makeText(this, "Unable to get file path88.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+    );
+    public String getFileName(Uri uri) {
+        String fileName = null;
+        String[] projection = { OpenableColumns.DISPLAY_NAME };
+
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    fileName = cursor.getString(nameIndex);
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        return fileName;
+    }
+
 }

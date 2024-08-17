@@ -133,7 +133,11 @@ public class DownloadService extends Service {
         }
 
         Intent intent = new Intent(this,MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(this,0,intent,0);
+
+
+        PendingIntent pi = PendingIntent.getActivity(this,0,intent,Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ?
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE:
+                PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,channelId);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));

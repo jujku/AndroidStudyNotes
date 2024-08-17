@@ -21,7 +21,7 @@
         app:cardCornerRadius="100dp"
         android:backgroundTint="@color/design_default_color_secondary"
         app:layout_constraintCircle="@id/dot"
-        app:layout_constraintCircleAngle="30"
+        app:layout_constraintCircleAngle="227"
         app:layout_constraintCircleRadius="80dp"
         />
     <androidx.cardview.widget.CardView
