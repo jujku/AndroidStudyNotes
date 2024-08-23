@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.customview.CustionViewGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:padding="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.example.customview.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:custom_text="hello"
+        android:background="@color/design_default_color_secondary"/>
+    <com.example.customview.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:custom_text="hello"
+        android:background="@color/design_default_color_secondary"/>
+    <com.example.customview.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:custom_text="hello"
+        android:background="@color/design_default_color_secondary"/>
+    <com.example.customview.CustomTextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    app:custom_text="hello"
+    android:background="@color/design_default_color_secondary"/>
+
+</com.example.customview.CustionViewGroup>

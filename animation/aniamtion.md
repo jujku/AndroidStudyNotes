@@ -1,0 +1,2 @@
+imageView.setTramslationX（500） 
+
