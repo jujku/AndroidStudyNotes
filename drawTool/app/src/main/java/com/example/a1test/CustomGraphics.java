@@ -87,6 +87,10 @@ public class CustomGraphics extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+
+
+        canvas.drawColor(Color.BLACK);
         canvas.translate(canvas.getWidth() / 2, 400); //将位置移动画质的坐标点
         canvas.drawCircle(0, 0, 200, mPaint); //画圆圈
 
