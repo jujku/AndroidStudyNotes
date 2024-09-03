@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    Button maskFilter,porterDiffuXferMode;
+    Button maskFilter,porterDiffuXferMode,circleImageView;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,9 +16,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         maskFilter = (Button) findViewById(R.id.maskFilter);
         porterDiffuXferMode = (Button) findViewById(R.id.a2xfermodeView);
+        circleImageView = (Button) findViewById(R.id.a3CircleImageView);
 
         maskFilter.setOnClickListener(this);
         porterDiffuXferMode.setOnClickListener(this);
+        circleImageView.setOnClickListener(this);
     }
 
     @Override
@@ -30,6 +32,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.a2xfermodeView:
                 intent = new Intent(MainActivity.this,A2xfermode.class);
+                startActivity(intent);
+                break;
+            case R.id.a3CircleImageView:
+                intent = new Intent(MainActivity.this,A3CircleImageView.class);
                 startActivity(intent);
                 break;
 
