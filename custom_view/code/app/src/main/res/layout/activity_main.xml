@@ -32,15 +32,33 @@
         app:layout_constraintTop_toBottomOf="@id/custom_textview"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <TextView
+    <com.example.a1test.view.ColorTrackTextView
+        android:id="@+id/color_track_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:text="jujku"
         android:textSize="18sp"
         android:textColor="@color/white"
-        android:background="@color/black"
+        app:originColor="@color/black"
+        app:changeColor="@color/purple_200"
+        android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+        <Button
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start"
+            app:layout_constraintBottom_toTopOf="@id/color_track_text_view"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/end_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="start"
+        app:layout_constraintBottom_toTopOf="@id/color_track_text_view"
+        app:layout_constraintStart_toEndOf="@id/start"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
