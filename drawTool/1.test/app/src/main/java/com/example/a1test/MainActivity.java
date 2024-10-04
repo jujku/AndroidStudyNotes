@@ -10,11 +10,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private String TAG = "ManiActivity";
+    private Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +26,11 @@ public class MainActivity extends AppCompatActivity {
         if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
             // 横屏
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.clock_date_land);
         } else if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // 竖屏
-            setContentView(R.layout.activity_main_su);
+            setContentView(R.layout.clock_date_land);
         }
-
 
 
         ActionBar actionbar = getSupportActionBar();
@@ -48,12 +49,14 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // 横屏
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.clock_date_land);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // 竖屏
-            setContentView(R.layout.activity_main_su);
+            setContentView(R.layout.clock_date_land);
         }
     }
+
+
     //    @Override
 //    public void onConfigurationChanged(Configuration newConfig) {
 //        super.onConfigurationChanged(newConfig);
