@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RaringBar">
+        <attr name="rating_image" format="reference"/>
+        <attr name="rating_image_active" format="reference"/>
+        <attr name="grade_rating" format="integer"/>
+    </declare-styleable>
+</resources>
