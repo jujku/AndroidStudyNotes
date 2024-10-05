@@ -105,4 +105,12 @@ public class ColorTrackTextView extends TextView {
         this.mCurrentProgress = currentProgress;
         invalidate();
     }
+
+    public void setChangeColor(int changeColor){
+        this.mChagnePaint.setColor(changeColor);
+    }
+
+    public void setOriginColor(int originColor){
+        this.mOriginPaint.setColor(originColor);
+    }
 }
