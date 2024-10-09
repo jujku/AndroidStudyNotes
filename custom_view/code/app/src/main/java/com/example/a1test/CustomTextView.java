@@ -93,8 +93,6 @@ public class CustomTextView extends LinearLayout {
         canvas.drawText(mText,x,baseLine,mPaint);
         //drawText的y是baseline
 
-
-
     }
 
     private int sp2px(int sp){
