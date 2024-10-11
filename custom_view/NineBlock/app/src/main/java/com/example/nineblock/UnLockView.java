@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -12,14 +13,16 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class UnLockView extends View {
+    int measuredWidth;
+    private Paint paint;
+    private float bigRadius;
 
-    private final float bigRadius;
-
-    private final float smallRadius;
+    private float smallRadius;
 
     private static final int NUMBER = 3;
 
     private final ArrayList<ArrayList<UnLockBean>> unLockPoints = new ArrayList<>();
+    private String TAG;
 
     public UnLockView(Context context) {
         this(context,null);
@@ -31,11 +34,13 @@ public class UnLockView extends View {
 
     public UnLockView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        paint = new Paint();
+        paint.setAntiAlias(true);
+//        paint.setColor(Color.RED);
         paint.setStrokeJoin(Paint.Join.BEVEL);
 
-        bigRadius = (getWidth()/(NUMBER * 2))*0.7f;
-        smallRadius = bigRadius *2;
     }
+
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -59,18 +64,18 @@ public class UnLockView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawColor(Color.YELLOW);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+        setMeasuredDimension(width,width);
 
-        for(ArrayList<UnLockBean> list : unLockPoints){
-            for(UnLockBean data : list){
-                paint.setAlpha((int) (255 * 0.6));
-                canvas.drawCircle(data.getX(),data.getY(),bigRadius,paint);
 
-                paint.setAlpha(255);
-                canvas.drawCircle(data.getX(),data.getY(),smallRadius,paint);
-            }
-        }
+
+        bigRadius = (width/(NUMBER * 2))*0.7f;
+
+        smallRadius = bigRadius *0.2f;
     }
+
+
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="JiuGonGeUnLockView">
+        <attr name="origin_color" format="color"/>
+        <attr name="down_color" format="color"/>
+        <attr name="up_color" format="color"/>
+        <attr name="error_color" format="color"/>
+        <attr name="grid_size" format="integer"/>
+        <attr name="block_style">
+            <enum name="fill" value="1"/>
+            <enum name="stroke" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>
