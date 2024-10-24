@@ -7,11 +7,17 @@
     tools:context=".MainActivity">
 
     <com.example.nineblock.JiuGonGeUnLockView
+        app:origin_color="#57D900"
+        app:down_color="@color/white"
+        app:error_color="@color/purple_700"
+        app:up_color="@color/purple_700"
+        app:grid_size="3"
+        app:block_style="stroke"
+
         android:id="@+id/unlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        app:grid_size="3"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.IntStream;
 
 public class JiuGonGeUnLockView extends View {
@@ -49,6 +50,7 @@ public class JiuGonGeUnLockView extends View {
     private String TAG;
     private boolean isDOWN;
     private boolean isEnableTouch = true;
+    private int currentStyleNumber = 1;
 
     public enum Type {
         ORIGIN, DOWN, UP, ERROR
@@ -83,10 +85,8 @@ public class JiuGonGeUnLockView extends View {
         DOWN_COLOR = array.getColor(R.styleable.JiuGonGeUnLockView_down_color,DOWN_COLOR);
         UP_COLOR = array.getColor(R.styleable.JiuGonGeUnLockView_up_color,UP_COLOR);
         ERROR_COLOR = array.getColor(R.styleable.JiuGonGeUnLockView_error_color,ERROR_COLOR);
-
-        NUMBER = array.getInteger(R.styleable.JiuGonGeUnLockView_grid_size,3);
-
-
+        NUMBER = array.getInteger(R.styleable.JiuGonGeUnLockView_grid_size,NUMBER);
+        currentStyleNumber = array.getInt(R.styleable.JiuGonGeUnLockView_block_style,currentStyleNumber);
 
         array.recycle();
 
@@ -134,7 +134,11 @@ public class JiuGonGeUnLockView extends View {
         for(ArrayList<UnLockBean> list : unLockPoints){
             for(UnLockBean data : list){
                 paint.setColor(getTypeColor(data.getType()));
-                paint.setStyle(Paint.Style.STROKE);
+                if(currentStyleNumber == 1){
+                    paint.setStyle(Paint.Style.FILL);
+                }else{
+                    paint.setStyle(Paint.Style.STROKE);
+                }
                 paint.setStrokeWidth(dp(4));
 
                 paint.setAlpha((int) (255 * 0.6));
